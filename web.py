@@ -5,11 +5,14 @@ from bs4 import BeautifulSoup
 import re
 import time
 from random import randint
+import pandas as pd
 
 options = Options()
 options.add_argument('--headless')
 
-url = "https://www.linkedin.com/in/hoangtungw/"
+# url = "https://www.linkedin.com/in/hoangtungw/"
+
+years = []
 
 chromedriver_autoinstaller.install()
 
@@ -30,7 +33,7 @@ def cal_month_of_exp(input):
 def web_crawl(url):
     driver = webdriver.Chrome(options=options)
     driver.get(url)
-    time.sleep(randint(2,5))
+    time.sleep(randint(3,5))
     final_result = []
     final_months = 0
     html = driver.page_source
@@ -51,8 +54,20 @@ def web_crawl(url):
     if len(final_result) > 0:
         for months in final_result:
             final_months += cal_month_of_exp(months)
+    years.append(final_months/12)
     print(f'Total year of exp: {final_months/12}')
 
+def excel_reader():
+  dataframe = pd.read_excel('Hanoi List copy.xlsx', sheet_name='Sheet1', usecols='G')
+  linklist = []
+  for index, row in dataframe.iterrows():
+    linklist.append(row[0])
+  return linklist
 
 if __name__ == "__main__":
-    web_crawl(url)
+    urllist = excel_reader()
+    for url in urllist:
+        print(url)
+        web_crawl(url)
+    df = pd.DataFrame(years)
+    df.to_excel("output.xlsx")
