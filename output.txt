@@ -1,3 +1,0 @@
-[<p class="experience-group-header__duration">
-            1 year 1 month
-          </p>]
