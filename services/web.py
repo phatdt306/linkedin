@@ -11,7 +11,7 @@ import pandas as pd
 
 from configparser import ConfigParser
 config = ConfigParser()
-config.read('./config/key_config.cfg')
+config.read('/config/key_config.cfg')
 
 USER_NAME = config.get('Linkedin', 'user_name')
 PASS_WORD = config.get('Linkedin', 'pass_word')
