@@ -20,15 +20,12 @@ options = Options()
 # options.add_argument('--headless')
 # options.add_argument("--incognito")
 
-#public
-url = "https://www.linkedin.com/in/hoangtungw/"
-#private
-# url = "https://www.linkedin.com/in/hung-nguyen-thanh-216424144"
-#local 
-# url = "file:///Users/ptta/Python/Learning%20Python/TestData/(15)LinkedIn.html"
+#public profile
+url = "https://www.linkedin.com/in/***/"
+#private profile
+# url = "https://www.linkedin.com/in/***/"
 
 years = []
-
 chromedriver_autoinstaller.install()
 
 
@@ -84,6 +81,7 @@ def login_linkldin(driver):
     login_btn = driver.find_element(By.XPATH,"//button[@type='submit']")
     login_btn.click()
 
+    
 def public_profile(driver):
     final_result = []
     final_months = 0
@@ -108,6 +106,7 @@ def public_profile(driver):
     years.append(final_months/12)
     print(f'Total year of exp: {final_months/12}')
 
+    
 def private_profile(driver):
     final_result = []
     final_months = 0
@@ -134,19 +133,21 @@ def excel_reader():
     linklist.append(row[0])
   return linklist
 
+
 if __name__ == "__main__":
+    # Uncommnet to craw private profile
     # urllist = excel_reader()
     # for url in urllist:
     #     print(url)
     #     web_crawl(url)
     # df = pd.DataFrame(years)
     # df.to_csv("output.csv")
-    
     # driver = webdriver.Chrome(options=options)
     # driver.get(url)
     # time.sleep(randint(3,5))
     # login_linkldin(driver)
     # time.sleep(randint(1,3))
     # private_profile(driver)
-
+    
+    # Public profile
     web_crawl(url)
